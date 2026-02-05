@@ -95,9 +95,33 @@ function App() {
               </div>
 
               <div className="input-block">
-                <label>Current Location <span className="req">*</span></label>
-                <input type="text" name="location" placeholder="Site name or office" value={formData.location} onChange={handleChange} required />
-              </div>
+  <label>Current Location <span className="req">*</span></label>
+  <div className="radio-group">
+    <label className="radio-label">
+      <input 
+        type="radio" 
+        name="location" 
+        value="BFE (Bellefort Estate)" 
+        checked={formData.location === "BFE (Bellefort Estate)"} 
+        onChange={handleChange} 
+        required 
+      />
+      <span>BFE (Bellefort Estate)</span>
+    </label>
+    
+    <label className="radio-label">
+      <input 
+        type="radio" 
+        name="location" 
+        value="VSA (Victoria South of Alabang)" 
+        checked={formData.location === "VSA (Victoria South of Alabang)"} 
+        onChange={handleChange} 
+        required 
+      />
+      <span>VSA (Victoria South of Alabang)</span>
+    </label>
+  </div>
+</div>
 
               <div className="form-actions">
                 <button type="submit" className="submit-btn">Submit</button>
