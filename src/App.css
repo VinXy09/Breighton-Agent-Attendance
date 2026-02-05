@@ -1,0 +1,178 @@
+:root {
+  --teal: #008bb1;
+  --orange: #f8a41c;
+  --bg-color: #f0ebf8;
+  --standard-width: 770px; /* Industry standard for browser forms */
+}
+
+/* 1. Reset and Center in Browser */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.browser-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Form starts from top with padding */
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+.viewport-content {
+  width: 100%;
+  max-width: var(--standard-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers Logo and Card together */
+}
+
+/* 2. Logo Section */
+.brand-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* Aligns logo with the left edge of the card */
+  margin-bottom: 24px;
+}
+
+.logo-main {
+  max-width: 380px; /* Scaled for desktop visibility */
+  height: auto;
+}
+
+/* 3. Form Card Styling */
+.form-card {
+  background: #ffffff;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.card-top-accent {
+  height: 10px;
+  background-color: var(--teal);
+}
+
+.card-padding {
+  padding: 40px 50px; /* Generous padding for a professional feel */
+}
+
+/* 4. Text and Inputs */
+.form-title {
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0 0 10px;
+  color: #202124;
+}
+
+.form-subtitle {
+  font-size: 15px;
+  color: #70757a;
+  margin-bottom: 30px;
+}
+
+.input-block {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.input-block label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.req { color: #d93025; }
+
+/* Fixing Black Box background issue */
+.input-block input, 
+.standard-select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #dadce0;
+  padding: 12px 0;
+  font-size: 16px;
+  outline: none;
+  background-color: #fff !important; 
+  color: #202124 !important;
+}
+
+/* Prevents Chrome yellow/black autofill */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.input-block input:focus, 
+.standard-select:focus {
+  border-bottom: 2px solid var(--teal);
+}
+
+/* 5. Actions and Footer */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  background-color: var(--teal);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #007798;
+}
+
+.clear-link {
+  color: var(--teal);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.browser-footer {
+  margin-top: 25px;
+  font-size: 12px;
+  color: #70757a;
+  align-self: flex-start; /* Aligns with the card edge */
+}
+
+/* 6. Success View */
+.success-view {
+  text-align: center;
+  padding: 60px;
+}
+
+.success-icon {
+  font-size: 60px;
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+/* 7. Progress Bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--orange);
+  z-index: 1000;
+  transition: width 0.3s ease;
+}
