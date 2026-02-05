@@ -10,7 +10,7 @@ function App() {
     location: ''
   });
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Added loading state
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -26,10 +26,10 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Start loading
+    setIsSubmitting(true);
     
     try {
-      // THE FIX: Added mode: 'no-cors' to bypass browser security blocks with Google Scripts
+      // mode: 'no-cors' is critical for communicating with Google Apps Script from a browser
       await fetch('https://script.google.com/macros/s/AKfycbxcP7YN3ov1N9AmsPp_XGl_BgtAlKgnWBS8nGC1fvC2MeaMGxNSvGxgkl-2KaxV724O/exec', {
         method: 'POST',
         mode: 'no-cors', 
@@ -39,14 +39,12 @@ function App() {
         body: JSON.stringify(formData),
       });
 
-      // When using 'no-cors', we won't get a standard response.ok, 
-      // so we assume success if the catch block isn't triggered.
       setSubmitted(true);
     } catch (error) {
       console.error("Error submitting to spreadsheet:", error);
       alert("Submission failed. Please check your connection.");
     } finally {
-      setIsSubmitting(false); // End loading
+      setIsSubmitting(false);
     }
   };
 
@@ -86,7 +84,7 @@ function App() {
           <div className="card-padding">
             <header className="form-intro">
               <h1 className="form-title">Agent Attendance Form</h1>
-              <p className="form-subtitle">Daily Log • Breighton Land Inc.</p>
+              <p className="form-subtitle">Daily Log • Breighton Real Estate Group</p>
             </header>
 
             <form onSubmit={handleSubmit} className="actual-form">

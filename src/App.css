@@ -5,7 +5,6 @@
   --standard-width: 770px;
 }
 
-/* 1. Reset and Center */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -34,7 +33,6 @@ html, body, #root {
   align-items: center;
 }
 
-/* 2. Logo Section */
 .brand-header {
   width: 100%;
   display: flex;
@@ -47,7 +45,6 @@ html, body, #root {
   height: auto;
 }
 
-/* 3. Form Card Styling */
 .form-card {
   background: #ffffff;
   width: 100%;
@@ -66,7 +63,6 @@ html, body, #root {
   padding: 40px 50px;
 }
 
-/* 4. Text and Inputs */
 .form-title {
   font-size: 32px;
   font-weight: 400;
@@ -94,7 +90,7 @@ html, body, #root {
 
 .req { color: #d93025; }
 
-/* Fixed: Added :not([type="radio"]) so radio buttons don't get the bottom border */
+/* Fixed: Separated radio buttons from standard text field styling */
 .input-block input:not([type="radio"]), 
 .standard-select {
   width: 100%;
@@ -111,12 +107,12 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
-.input-block input:focus, 
+.input-block input:focus:not([type="radio"]), 
 .standard-select:focus {
   border-bottom: 2px solid var(--teal);
 }
 
-/* 5. Radio Buttons Logic */
+/* Radio Button Styling */
 .radio-group {
   display: flex;
   flex-direction: column;
@@ -129,18 +125,17 @@ input:-webkit-autofill {
   align-items: center;
   cursor: pointer;
   padding: 8px 0;
-  font-weight: 400 !important; /* Makes options less bold than the question */
+  font-weight: 400 !important;
 }
 
 .radio-label input[type="radio"] {
-  width: 22px !important;
-  height: 22px;
+  width: 20px !important;
+  height: 20px;
   margin-right: 12px;
   accent-color: var(--teal);
   cursor: pointer;
 }
 
-/* 6. Actions and Footer */
 .form-actions {
   display: flex;
   justify-content: space-between;
@@ -151,22 +146,17 @@ input:-webkit-autofill {
 .submit-btn {
   background-color: var(--teal);
   color: white;
-  padding: 12px 35px;
+  padding: 12px 30px;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   font-size: 16px;
-  transition: all 0.2s;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background-color: #007798;
-  transform: translateY(-1px);
+  transition: opacity 0.2s;
 }
 
 .submit-btn:disabled {
-  background-color: #ccc;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -174,7 +164,6 @@ input:-webkit-autofill {
   color: var(--teal);
   font-size: 14px;
   cursor: pointer;
-  text-decoration: underline;
 }
 
 .browser-footer {
@@ -184,7 +173,6 @@ input:-webkit-autofill {
   align-self: flex-start;
 }
 
-/* 7. Success View */
 .success-view {
   text-align: center;
   padding: 60px;
@@ -196,7 +184,6 @@ input:-webkit-autofill {
   margin-bottom: 20px;
 }
 
-/* 8. Progress Bar */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -207,18 +194,8 @@ input:-webkit-autofill {
   transition: width 0.3s ease;
 }
 
-/* 9. Responsive adjustments */
 @media (max-width: 480px) {
-  .browser-container {
-    padding: 20px 15px;
-  }
-  .card-padding {
-    padding: 25px 20px;
-  }
-  .logo-main {
-    max-width: 260px;
-  }
-  .form-title {
-    font-size: 24px;
-  }
+  .card-padding { padding: 25px 20px; }
+  .logo-main { max-width: 280px; }
+  .form-title { font-size: 24px; }
 }
