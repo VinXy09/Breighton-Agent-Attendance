@@ -27,7 +27,7 @@ function App() {
   e.preventDefault();
   
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwcTQ8sl8r7GwPXQiTK9yUAak-7mHNcHkoVyIDF0ilVmM_oWoSY5OoCvJlgCCo_ziMW/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxcP7YN3ov1N9AmsPp_XGl_BgtAlKgnWBS8nGC1fvC2MeaMGxNSvGxgkl-2KaxV724O/exec', {
       method: 'POST',
       body: JSON.stringify(formData),
     });
