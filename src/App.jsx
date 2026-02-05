@@ -23,10 +23,23 @@ function App() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwcTQ8sl8r7GwPXQiTK9yUAak-7mHNcHkoVyIDF0ilVmM_oWoSY5OoCvJlgCCo_ziMW/exec', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      setSubmitted(true);
+    }
+  } catch (error) {
+    console.error("Error submitting to spreadsheet:", error);
+    alert("Submission failed. Please check your connection.");
+  }
+};
 
   if (submitted) {
   return (
