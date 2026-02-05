@@ -2,10 +2,10 @@
   --teal: #008bb1;
   --orange: #f8a41c;
   --bg-color: #f0ebf8;
-  --standard-width: 770px; /* Industry standard for browser forms */
+  --standard-width: 770px;
 }
 
-/* 1. Reset and Center in Browser */
+/* 1. Reset and Center */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@ html, body, #root {
   min-height: 100vh;
   background-color: var(--bg-color);
   display: flex;
-  justify-content: center; /* Horizontally center */
+  justify-content: center;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -21,7 +21,7 @@ html, body, #root {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Form starts from top with padding */
+  align-items: flex-start;
   padding: 60px 20px;
   box-sizing: border-box;
 }
@@ -31,19 +31,19 @@ html, body, #root {
   max-width: var(--standard-width);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers Logo and Card together */
+  align-items: center;
 }
 
 /* 2. Logo Section */
 .brand-header {
   width: 100%;
   display: flex;
-  justify-content: flex-start; /* Aligns logo with the left edge of the card */
+  justify-content: flex-start;
   margin-bottom: 24px;
 }
 
 .logo-main {
-  max-width: 380px; /* Scaled for desktop visibility */
+  max-width: 380px;
   height: auto;
 }
 
@@ -63,7 +63,7 @@ html, body, #root {
 }
 
 .card-padding {
-  padding: 40px 50px; /* Generous padding for a professional feel */
+  padding: 40px 50px;
 }
 
 /* 4. Text and Inputs */
@@ -94,8 +94,8 @@ html, body, #root {
 
 .req { color: #d93025; }
 
-/* Fixing Black Box background issue */
-.input-block input, 
+/* Fixed: Added :not([type="radio"]) so radio buttons don't get the bottom border */
+.input-block input:not([type="radio"]), 
 .standard-select {
   width: 100%;
   border: none;
@@ -107,7 +107,6 @@ html, body, #root {
   color: #202124 !important;
 }
 
-/* Prevents Chrome yellow/black autofill */
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
@@ -117,7 +116,31 @@ input:-webkit-autofill {
   border-bottom: 2px solid var(--teal);
 }
 
-/* 5. Actions and Footer */
+/* 5. Radio Buttons Logic */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 0;
+  font-weight: 400 !important; /* Makes options less bold than the question */
+}
+
+.radio-label input[type="radio"] {
+  width: 22px !important;
+  height: 22px;
+  margin-right: 12px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+
+/* 6. Actions and Footer */
 .form-actions {
   display: flex;
   justify-content: space-between;
@@ -128,33 +151,40 @@ input:-webkit-autofill {
 .submit-btn {
   background-color: var(--teal);
   color: white;
-  padding: 12px 30px;
+  padding: 12px 35px;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background-color: #007798;
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .clear-link {
   color: var(--teal);
   font-size: 14px;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .browser-footer {
   margin-top: 25px;
   font-size: 12px;
   color: #70757a;
-  align-self: flex-start; /* Aligns with the card edge */
+  align-self: flex-start;
 }
 
-/* 6. Success View */
+/* 7. Success View */
 .success-view {
   text-align: center;
   padding: 60px;
@@ -166,7 +196,7 @@ input:-webkit-autofill {
   margin-bottom: 20px;
 }
 
-/* 7. Progress Bar */
+/* 8. Progress Bar */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -177,44 +207,18 @@ input:-webkit-autofill {
   transition: width 0.3s ease;
 }
 
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-weight: 400 !important; /* Overrides the bold label style */
-}
-
-.radio-label input[type="radio"] {
-  width: 20px !important; /* Ensures the button isn't a full-width line */
-  height: 20px;
-  margin-right: 12px;
-  accent-color: var(--teal); /* Uses your brand teal color */
-  cursor: pointer;
-}
-
-.radio-label span {
-  font-size: 16px;
-  color: #202124;
-}
-
-/* Responsive adjustments for phones */
+/* 9. Responsive adjustments */
 @media (max-width: 480px) {
+  .browser-container {
+    padding: 20px 15px;
+  }
   .card-padding {
-    padding: 25px 20px; /* Reduces inner spacing on small screens */
+    padding: 25px 20px;
   }
-  
   .logo-main {
-    max-width: 280px; /* Shrinks logo slightly so it fits better */
+    max-width: 260px;
   }
-
   .form-title {
-    font-size: 24px; /* Makes title smaller on phones */
+    font-size: 24px;
   }
 }

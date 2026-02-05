@@ -10,6 +10,7 @@ function App() {
     location: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Added loading state
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -24,46 +25,62 @@ function App() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxcP7YN3ov1N9AmsPp_XGl_BgtAlKgnWBS8nGC1fvC2MeaMGxNSvGxgkl-2KaxV724O/exec', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-    });
+    e.preventDefault();
+    setIsSubmitting(true); // Start loading
+    
+    try {
+      // THE FIX: Added mode: 'no-cors' to bypass browser security blocks with Google Scripts
+      await fetch('https://script.google.com/macros/s/AKfycbxcP7YN3ov1N9AmsPp_XGl_BgtAlKgnWBS8nGC1fvC2MeaMGxNSvGxgkl-2KaxV724O/exec', {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
+      // When using 'no-cors', we won't get a standard response.ok, 
+      // so we assume success if the catch block isn't triggered.
       setSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting to spreadsheet:", error);
+      alert("Submission failed. Please check your connection.");
+    } finally {
+      setIsSubmitting(false); // End loading
     }
-  } catch (error) {
-    console.error("Error submitting to spreadsheet:", error);
-    alert("Submission failed. Please check your connection.");
-  }
-};
+  };
 
   if (submitted) {
-  return (
-    <div className="browser-container">
-      <div className="form-card success-view">
-        <div className="success-icon">✓</div>
-        <h1 className="form-title">Success!</h1>
-        <p>Your daily log has been submitted successfully.</p>
+    return (
+      <div className="browser-container">
+        <div className="form-card success-view">
+          <div className="success-icon">✓</div>
+          <h1 className="form-title">Success!</h1>
+          <p>Your daily log has been submitted successfully.</p>
+          <button 
+            className="submit-btn" 
+            style={{marginTop: '20px'}}
+            onClick={() => {
+              setSubmitted(false);
+              setFormData({name:'', contactNumber:'', teamName:'', location:''});
+            }}
+          >
+            Submit Another
+          </button>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="browser-container">
       <div className="progress-bar" style={{ width: `${progress}%` }}></div>
       
       <div className="viewport-content">
-        {/* Centered Logo Section */}
         <div className="brand-header">
           <img src={headerLogo} alt="Breighton Logo" className="logo-main" />
         </div>
 
-        {/* Standard Sized Form Card */}
         <div className="form-card">
           <div className="card-top-accent"></div>
           <div className="card-padding">
@@ -95,36 +112,38 @@ function App() {
               </div>
 
               <div className="input-block">
-  <label>Current Location <span className="req">*</span></label>
-  <div className="radio-group">
-    <label className="radio-label">
-      <input 
-        type="radio" 
-        name="location" 
-        value="BFE (Bellefort Estate)" 
-        checked={formData.location === "BFE (Bellefort Estate)"} 
-        onChange={handleChange} 
-        required 
-      />
-      <span>BFE (Bellefort Estate)</span>
-    </label>
-    
-    <label className="radio-label">
-      <input 
-        type="radio" 
-        name="location" 
-        value="VSA (Victoria South of Alabang)" 
-        checked={formData.location === "VSA (Victoria South of Alabang)"} 
-        onChange={handleChange} 
-        required 
-      />
-      <span>VSA (Victoria South of Alabang)</span>
-    </label>
-  </div>
-</div>
+                <label>Current Location <span className="req">*</span></label>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input 
+                      type="radio" 
+                      name="location" 
+                      value="BFE (Bellefort Estate)" 
+                      checked={formData.location === "BFE (Bellefort Estate)"} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    <span>BFE (Bellefort Estate)</span>
+                  </label>
+                  
+                  <label className="radio-label">
+                    <input 
+                      type="radio" 
+                      name="location" 
+                      value="VSA (Victoria South of Alabang)" 
+                      checked={formData.location === "VSA (Victoria South of Alabang)"} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    <span>VSA (Victoria South of Alabang)</span>
+                  </label>
+                </div>
+              </div>
 
               <div className="form-actions">
-                <button type="submit" className="submit-btn">Submit</button>
+                <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
                 <span className="clear-link" onClick={() => setFormData({name:'', contactNumber:'', teamName:'', location:''})}>
                   Clear form
                 </span>
