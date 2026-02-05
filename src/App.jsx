@@ -56,7 +56,7 @@ function App() {
           <div className="card-padding">
             <header className="form-intro">
               <h1 className="form-title">Agent Attendance Form</h1>
-              <p className="form-subtitle">Daily Log • Breighton Real Estate Group</p>
+              <p className="form-subtitle">Daily Log • Breighton Land Inc.</p>
             </header>
 
             <form onSubmit={handleSubmit} className="actual-form">
