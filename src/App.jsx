@@ -29,7 +29,7 @@ function App() {
     setIsSubmitting(true);
     
     try {
-      // mode: 'no-cors' is critical for communicating with Google Apps Script from a browser
+      // Using 'no-cors' mode is essential for Google Apps Script to avoid connection errors
       await fetch('https://script.google.com/macros/s/AKfycbxcP7YN3ov1N9AmsPp_XGl_BgtAlKgnWBS8nGC1fvC2MeaMGxNSvGxgkl-2KaxV724O/exec', {
         method: 'POST',
         mode: 'no-cors', 
@@ -41,7 +41,7 @@ function App() {
 
       setSubmitted(true);
     } catch (error) {
-      console.error("Error submitting to spreadsheet:", error);
+      console.error("Submission failed:", error);
       alert("Submission failed. Please check your connection.");
     } finally {
       setIsSubmitting(false);
@@ -84,7 +84,7 @@ function App() {
           <div className="card-padding">
             <header className="form-intro">
               <h1 className="form-title">Agent Attendance Form</h1>
-              <p className="form-subtitle">Daily Log • Breighton Real Estate Group</p>
+              <p className="form-subtitle">Daily Log • Breighton Land Inc.</p>
             </header>
 
             <form onSubmit={handleSubmit} className="actual-form">
