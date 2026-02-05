@@ -176,3 +176,18 @@ input:-webkit-autofill {
   z-index: 1000;
   transition: width 0.3s ease;
 }
+
+/* Responsive adjustments for phones */
+@media (max-width: 480px) {
+  .card-padding {
+    padding: 25px 20px; /* Reduces inner spacing on small screens */
+  }
+  
+  .logo-main {
+    max-width: 280px; /* Shrinks logo slightly so it fits better */
+  }
+
+  .form-title {
+    font-size: 24px; /* Makes title smaller on phones */
+  }
+}
